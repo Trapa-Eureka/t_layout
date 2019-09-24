@@ -7,6 +7,502 @@
     <title>vanila js</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css'>
     <link rel="stylesheet" href="/css/index.css">
+    <style>
+        *,
+         :before,
+         :after {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #2c3e50;
+        }
+        
+        .btn {
+            cursor: pointer;
+        }
+        
+        body {
+            color: #34495e;
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .clicked {
+            color: #7f8c8d;
+        }
+        
+        .form,
+        .greetings {
+            display: none;
+        }
+        
+        .showing {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .bgImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: fadeIn 0.5s linear;
+        }
+        
+        .wrap {
+            display: grid;
+            grid-template-columns: 20% 1fr;
+            grid-gap: 0px;
+            width: 100%;
+            height: 100%;
+            /*
+    padding-top: 15vh;
+    margin: 0 auto;
+    width: 600px;
+    */
+        }
+        
+        .wrap .info-area {
+            display: grid;
+            grid-template-rows: repeat(6, max-content);
+            grid-gap: 9px;
+            padding-left: 100px;
+        }
+        
+        .info-area .logo {
+            width: 100%;
+            padding: 36px 0px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .info-area .opening,
+        .info-area .cs-center {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 0px;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .info-area .opening {
+            padding-top: 20px;
+        }
+        
+        .opening .tit,
+        .cs-center .tit {
+            color: #dbdbdb;
+            font-size: 15px;
+            letter-spacing: 0.1px;
+        }
+        
+        .opening .time,
+        .cs-center .time {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo div {
+            width: 122px;
+            height: 95px;
+            background-image: url('https://nomadcoders.co/static/m.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            _background-color: #34495e;
+        }
+        
+        .info-area .language {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 12px;
+        }
+        
+        .language .lang-tit {
+            color: #dbdbdb;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .language .lang-btns {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 6px;
+        }
+        
+        .lang-btns .upper,
+        .lang-btns .lower {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            grid-gap: 6px;
+        }
+        
+        .lang-btns .lang-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #adadad;
+            _opacity: 0.5;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        }
+        
+        .lang-btns .lang-icon:hover {
+            background-color: #fff;
+        }
+        
+        .lang-btns .lang-icon:hover span {
+            color: #160e45;
+        }
+        
+        .lang-icon span {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .wrap .js-clock {
+            display: block;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            margin-top: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-top: 1px solid #fff;
+        }
+        
+        .wrap .js-clock h1 {
+            display: block;
+            position: relative;
+            text-align: left;
+            margin: 0;
+            color: #fff;
+            font-size: 30px;
+            font-weight: 400;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap .js-form {
+            _display: block;
+            position: relative;
+            width: 600px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrap .js-toDoForm {
+            _display: block;
+            position: relative;
+            width: 600px;
+            margin: 50px 0 0 0;
+            padding: 0;
+        }
+        
+        .wrap .js-form input,
+        .wrap .js-toDoForm input {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            background: none;
+            color: #c6c6c6;
+            font-size: 18px;
+            width: 350px;
+            border: none;
+            padding: 9px 0px;
+            border-radius: 0;
+            border-bottom: 1px solid #c6c6c6;
+        }
+        
+        .wrap .js-form input:focus,
+        .wrap .js-toDoForm input:focus {
+            outline: none;
+        }
+        
+        .wrap .js-form input::placeholder,
+        .wrap .js-toDoForm input::placeholder {
+            position: relative;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.8px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap .js-weather {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            text-align: left;
+            color: #fff;
+            font-weight: 500;
+            height: 60px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap h4 {
+            display: block;
+            position: relative;
+            text-align: center;
+            color: #fff;
+            font-size: 35px;
+            font-weight: 500;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap .js-toDoList {
+            padding: 16px 0px;
+            margin: 0;
+            width: 600px;
+            text-align: center;
+        }
+        
+        .wrap .js-toDoList li {
+            list-style: none;
+            padding-bottom: 11px;
+        }
+        
+        .wrap .js-toDoList span {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap .js-toDoList button {
+            width: 28px;
+            height: 28px;
+            position: relative;
+            cursor: pointer;
+            font-size: 22px;
+            color: #fff;
+            line-height: 20px;
+            padding: 0px 2px 2px 2px;
+            margin-left: 10px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            background: none;
+            outline: none;
+            opacity: 0.5;
+            font-weight: 300;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .wrap .js-toDoList button:hover {
+            opacity: 1;
+        }
+        /* weather */
+        
+        .weather {
+            display: grid;
+            grid-template-rows: repeat(4, max-content);
+            grid-gap: 0px;
+        }
+        
+        .location {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .location p {
+            margin: 0px 0px;
+            color: #fff;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .location span {
+            text-transform: uppercase;
+        }
+        
+        .weather-data {
+            font-size: 4rem;
+        }
+        
+        .weather-data i {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 125px;
+            margin-top: 10px;
+            color: #fff;
+        }
+        
+        .weather-data>div {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .weather-data>div>span {
+            display: block;
+            font-size: 13px;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .degrees {
+            font-size: 48px;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: -2.5px;
+            margin-left: 15px;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .switcher {
+            width: 150px;
+            height: 35px;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            line-height: 35px;
+            color: #fff;
+            background-color: #adadad;
+            transition: all 300ms ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .switcher:hover,
+        .switcher:focus,
+        .switcher:active {
+            text-decoration: none;
+            color: #160e45;
+            background-color: #fff;
+        }
+        
+        .menu-area {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 0px;
+        }
+        
+        .menu-area .academy {
+            width: 100%;
+            padding: 36px 60px 36px 0px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .academy a {
+            text-decoration: none;
+        }
+        
+        .academy .link {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 0px;
+        }
+        
+        .link .logos {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            grid-gap: 0px;
+        }
+        
+        .logos .s-logo {
+            width: 44px;
+            height: 34px;
+            background-image: url('https://nomadcoders.co/static/m.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            margin-right: 20px;
+        }
+        
+        .logos span {
+            font-size: 19px;
+            color: #fff;
+            display: flex;
+            justify-content: flex-start;
+            align-self: center;
+            padding-left: 20px;
+            border-left: 1px solid #fff;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .link .title {
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 3px;
+            color: #fff;
+            display: flex;
+            justify-content: flex-end;
+            align-self: center;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+        
+        .menu-area .main-menu {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            grid-gap: 17px;
+            padding: 138px 90px 0px 150px;
+        }
+        
+        .main-menu .main-left {
+            display: grid;
+            grid-template-rows: repeat(2, max-content);
+            grid-gap: 17px;
+        }
+        
+        .main-left .upper,
+        .main-left .lower {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 17px;
+        }
+        
+        .main-left .box {
+            width: 280px;
+            height: 298px;
+            border-radius: 11px;
+            background-color: #fff;
+            box-shadow: 0 3px 2px #e7eeef;
+            transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+            box-sizing: border-box;
+        }
+        
+        .main-menu .main-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 613px;
+            border-radius: 11px;
+            background-color: #fff;
+            box-shadow: 0 3px 2px #e7eeef;
+        }
+    </style>
 </head>
 
 <body>
