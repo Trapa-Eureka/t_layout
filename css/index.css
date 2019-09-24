@@ -60,7 +60,7 @@ body {
 
 .wrap {
     display: grid;
-    grid-template-columns: 26% 1fr;
+    grid-template-columns: 20% 1fr;
     grid-gap: 0px;
     width: 100%;
     height: 100%;
@@ -80,7 +80,7 @@ body {
 
 .info-area .logo {
     width: 100%;
-    height: 250px;
+    padding: 36px 0px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -92,6 +92,10 @@ body {
     grid-template-rows: repeat(2, max-content);
     grid-gap: 0px;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.info-area .opening {
+    padding-top: 20px;
 }
 
 .opening .tit,
@@ -110,9 +114,13 @@ body {
 }
 
 .logo div {
-    width: 120px;
-    height: 60px;
-    background-color: #34495e;
+    width: 122px;
+    height: 95px;
+    background-image: url('https://nomadcoders.co/static/m.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    _background-color: #34495e;
 }
 
 .info-area .language {
@@ -172,9 +180,9 @@ body {
     position: relative;
     margin: 0;
     padding: 0;
-    margin-top: 50px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-top: 1px solid #fff;
 }
 
@@ -303,4 +311,89 @@ body {
 
 .wrap .js-toDoList button:hover {
     opacity: 1;
+}
+
+
+/* weather */
+
+.weather {
+    display: grid;
+    grid-template-rows: repeat(4, max-content);
+    grid-gap: 0px;
+}
+
+.location {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.location p {
+    margin: 0px 0px;
+    color: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.location span {
+    text-transform: uppercase;
+}
+
+.weather-data {
+    font-size: 4rem;
+}
+
+.weather-data i {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 125px;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.weather-data>div {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.weather-data>div>span {
+    display: block;
+    font-size: 13px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.degrees {
+    font-size: 48px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -2.5px;
+    margin-left: 15px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.switcher {
+    width: 150px;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 35px;
+    color: #fff;
+    background-color: #adadad;
+    transition: all 300ms ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.switcher:hover,
+.switcher:focus,
+.switcher:active {
+    text-decoration: none;
+    color: #160e45;
+    background-color: #fff;
 }
