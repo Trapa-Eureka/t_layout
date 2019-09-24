@@ -397,3 +397,106 @@ body {
     color: #160e45;
     background-color: #fff;
 }
+
+.menu-area {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    grid-gap: 0px;
+}
+
+.menu-area .academy {
+    width: 100%;
+    padding: 36px 60px 36px 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.academy a {
+    text-decoration: none;
+}
+
+.academy .link {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    grid-gap: 0px;
+}
+
+.link .logos {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 0px;
+}
+
+.logos .s-logo {
+    width: 44px;
+    height: 34px;
+    background-image: url('https://nomadcoders.co/static/m.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin-right: 20px;
+}
+
+.logos span {
+    font-size: 19px;
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    padding-left: 20px;
+    border-left: 1px solid #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.link .title {
+    font-size: 14px;
+    font-weight: 500;
+    padding-top: 3px;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.menu-area .main-menu {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 17px;
+    padding: 138px 90px 0px 150px;
+}
+
+.main-menu .main-left {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    grid-gap: 17px;
+}
+
+.main-left .upper,
+.main-left .lower {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 17px;
+}
+
+.main-left .box {
+    width: 280px;
+    height: 298px;
+    border-radius: 11px;
+    background-color: #fff;
+    box-shadow: 0 3px 2px #e7eeef;
+    transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+    box-sizing: border-box;
+}
+
+.main-menu .main-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 613px;
+    border-radius: 11px;
+    background-color: #fff;
+    box-shadow: 0 3px 2px #e7eeef;
+}
